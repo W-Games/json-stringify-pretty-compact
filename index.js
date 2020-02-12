@@ -38,12 +38,17 @@ module.exports = function stringify(passedObj, options) {
     }
 
     length = maxLength - currentIndent.length - reserved;
-
-    if (string.length <= length) {
+    let bypass = false;
+    if(Array.isArray(obj) && 
+        (obj.every((v)=> typeof v === "string")
+        || obj.every((v)=> typeof v === "number"))){
+      bypass = true;
+    }
+    if (string.length <= length || bypass) {
       prettified = string.replace(stringOrChar, function(match, stringLiteral) {
         return stringLiteral || match + " ";
       });
-      if (prettified.length <= length) {
+      if (prettified.length <= length || bypass) {
         return prettified;
       }
     }
