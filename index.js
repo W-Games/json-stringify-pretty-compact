@@ -39,9 +39,7 @@ module.exports = function stringify(passedObj, options) {
 
     length = maxLength - currentIndent.length - reserved;
     let bypass = false;
-    if(Array.isArray(obj) && 
-        (obj.every((v)=> typeof v === "string")
-        || obj.every((v)=> typeof v === "number"))){
+    if(Array.isArray(obj) && (obj.every((v)=> typeof v === "string" || typeof v === "number"))){
       bypass = true;
     }
     if (string.length <= length || bypass) {
